@@ -86,3 +86,40 @@ score.naivebayes = function(train.sentences, test.sentences, .progress = 'none')
   predicted = predict(classifier, mat2[0:5,]); 
   return(predicted)
 }
+
+
+# Uses ViralHeat's API to calculate the sentiment of a given piece of text.
+# Note that maximum number of characters is 360
+score.viralheat = function (text, api.key){
+  library(RCurl);
+  library(RJSONIO);
+  
+  text <- URLencode(text);
+  text <- str_replace_all(text, "%20", " ");
+  text <- str_replace_all(text, "%\\d\\d", "");
+  text <- str_replace_all(text, " ", "%20");
+  
+  if (str_length(text) > 360){
+    text <- substr(text, 0, 359);
+  }
+  
+  data <- getURL(paste("http://www.viralheat.com/api/sentiment/review.json?text=",text,"&api_key=", api.key, sep=""))
+  
+  js <- fromJSON(data, asText=TRUE);
+  
+  sent <- js$prob;
+  
+  j <<- js;
+  
+  if (js$mood == "negative") {
+    sent <- sent * -1;
+  }
+  else{
+    if (js$mood != "positive") {
+      #must be neutral
+      sent <- 0;
+    }
+  }
+  
+  return(sent);
+}
