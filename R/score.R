@@ -1,10 +1,4 @@
-#
-# Example:
-# pos <- scan(posTextFile, what='character', comment.char=';')
-# neg <- scan(negTextFile, what='character', comment.char=';')
-# text <- "I am happy!"
-# scores = score.aggregate(text, pos, neg, .progress="text")
-#
+#simple aggregation function with regex driven gsub
 score.aggregate = function(sentences, pos.words, neg.words, .progress='none')  
 { 
   require(plyr)  
@@ -17,7 +11,6 @@ score.aggregate = function(sentences, pos.words, neg.words, .progress='none')
   # array ("a") of scores back =  "l" + "a" + "ply" = "laply":  
   scores = laply(sentences, function(sentence, pos.words, neg.words) {  
     
-    # regex driven gsub
     sentence = gsub('[[:punct:]]', '', sentence)  
     sentence = gsub('[[:cntrl:]]', '', sentence)  
     sentence = gsub("[[:digit:]]", "", sentence)

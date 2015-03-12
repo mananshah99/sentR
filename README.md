@@ -1,2 +1,2 @@
 # sentR
-Robust sentiment analysis using R functionality
+An R package that provides robust functional sentiment analysis utilities.
