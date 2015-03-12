@@ -65,3 +65,27 @@ score.aggregate = function(sentences, pos.words, neg.words, .progress='none')
   scores.df = data.frame(score=scores, text=sentences)  
   return(scores.df)  
 }
+
+#all sentences have to be annotated
+score.naivebayes = function(train.sentences, test.sentences, .progress = 'none') {
+  library(RTextTools)
+  library(e1071)
+  matrix= create_matrix(train.sentences[,1], language="english", 
+                        removeStopwords=TRUE, removeNumbers=TRUE,
+                        stemWords=TRUE) 
+  
+  # train the model
+  mat = as.matrix(matrix)
+  classifier = naiveBayes(mat[1:length(train.sentences)/2,], as.factor(train.sentences[1:length(train.sentences)/2,2]))
+  
+  matrix2 = create_matrix(test.sentences[,1], language="english", 
+                        removeStopwords=TRUE, removeNumbers=TRUE,
+                        stemWords=TRUE)
+  
+  mat2 = as.matrix(matrix2)
+  
+  # test the validity
+  predicted = predict(classifier, mat2[0:5,]); predicted
+  table(mat2[0:5, 2], predicted)
+  recall_accuracy(mat2[0:5], predicted)
+}
