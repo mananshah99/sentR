@@ -1,0 +1,9 @@
+Package: sentR
+Type: Package
+Title: Provides varied techniques for big data sentiment analysis in R
+Version: 0.1
+Date: 2015-03-11
+Author: Manan Shah
+Maintainer: Manan Shah <manan.shah.777@gmail.com>
+Description: Provides a more holistic understanding of sentiment analysis with numerous implemented methodologies in R
+License: MIT

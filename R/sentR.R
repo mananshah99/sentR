@@ -1,0 +1,67 @@
+#
+# Example:
+# pos <- scan(posTextFile, what='character', comment.char=';')
+# neg <- scan(negTextFile, what='character', comment.char=';')
+# text <- "I am happy!"
+# scores = score.aggregate(text, pos, neg, .progress="text")
+#
+score.aggregate = function(sentences, pos.words, neg.words, .progress='none')  
+{ 
+  require(plyr)  
+  require(stringr)       
+  
+  # add smileys
+  good.smiley <- c(":)")
+  bad.smiley <- c(":(",";(",":'(") 
+  
+  # array ("a") of scores back =  "l" + "a" + "ply" = "laply":  
+  scores = laply(sentences, function(sentence, pos.words, neg.words) {  
+    
+    # regex driven gsub
+    sentence = gsub('[[:punct:]]', '', sentence)  
+    sentence = gsub('[[:cntrl:]]', '', sentence)  
+    sentence = gsub("[[:digit:]]", "", sentence)
+    sentence = gsub('\\d+', '', sentence)   
+    sentence = gsub("(RT|via)((?:\\b\\W*@\\w+)+)", "", sentence)
+    sentence = gsub("@\\w+", "", sentence)
+    sentence = gsub("http\\w+", "", sentence)
+    sentence = gsub("[ \t]{2,}", "", sentence)
+    sentence = gsub("^\\s+|\\s+$", "", sentence)
+    
+    # define "tolower error handling" function 
+    try.error = function(x)
+    {
+      y = NA
+      try_error = tryCatch(tolower(x), error=function(e) e)
+      
+      # if not an error
+      if (!inherits(try_error, "error"))
+        y = tolower(x)
+      
+      return(y)
+    }
+    
+    sentence = sapply(sentence, try.error)
+    sentence = sentence[!is.na(sentence)]
+    names(sentence) = NULL
+    
+    word.list = str_split(sentence, '\\s+')  
+    words = unlist(word.list)  
+    
+    pos.matches = match(words, pos.words)  
+    neg.matches = match(words, neg.words)  
+    
+    # match() returns the position of the matched term or NA (we only want a boolean value)
+    #  which is fixed by sum
+    pos.matches = !is.na(pos.matches)  
+    neg.matches = !is.na(neg.matches)  
+    
+    score = sum(pos.matches) - sum(neg.matches)  
+    
+    return(score)  
+  }, pos.words, neg.words, .progress=.progress)
+  
+  # returns a data frame
+  scores.df = data.frame(score=scores, text=sentences)  
+  return(scores.df)  
+}
