@@ -1,4 +1,4 @@
-multiplot <- function(..., plotlist=NULL, cols) {
+plot.multiplot <- function(..., plotlist=NULL, cols) {
   require(grid)
   # Make a list from the ... arguments and plotlist
   plots <- c(list(...), plotlist)
