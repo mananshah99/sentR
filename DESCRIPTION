@@ -7,3 +7,12 @@ Author: Manan Shah
 Maintainer: Manan Shah <manan.shah.777@gmail.com>
 Description: Provides a more holistic understanding of sentiment analysis with numerous implemented methodologies in R
 License: MIT
+Imports:
+  RCurl,
+  RJSONIO,
+  RTextTools,
+  XML,
+  e1071,
+  grid,
+  plyr,
+  stringr

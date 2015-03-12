@@ -6,7 +6,7 @@
 Provides varied techniques for big data sentiment analysis in R
 }
 \description{
-Provides a more holistic understanding of sentiment analysis with numerous implemented methodologies in R
+Provides a more holistic understanding of sentiment analysis with numerous implemented methodologies including Naive bayes, Score Aggregation, and external database sourcing.
 }
 \details{
 \tabular{ll}{
@@ -24,8 +24,8 @@ Manan Shah
 
 \keyword{ package, sentiment, analysis }
 \examples{
-pos <- scan(posTextFile, what='character', comment.char=';')
-neg <- scan(negTextFile, what='character', comment.char=';')
+posText <- c('happy', 'good')
+negText <- c('sad', 'bad')
 text <- "I am happy!"
-scores = score.aggregate(text, pos, neg, .progress="text")
+scores = score.aggregate(text, posText, negText, .progress='none')
 }
