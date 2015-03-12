@@ -83,9 +83,6 @@ score.naivebayes = function(train.sentences, test.sentences, .progress = 'none')
                         stemWords=TRUE)
   
   mat2 = as.matrix(matrix2)
-  
-  # test the validity
-  predicted = predict(classifier, mat2[0:5,]); predicted
-  table(mat2[0:5, 2], predicted)
-  recall_accuracy(mat2[0:5], predicted)
+  predicted = predict(classifier, mat2[0:5,]); 
+  return(predicted)
 }
