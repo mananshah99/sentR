@@ -83,7 +83,7 @@ score.naivebayes = function(train.sentences, test.sentences, .progress = 'none')
 
 # Uses ViralHeat's API to calculate the sentiment of a given piece of text.
 # Note that maximum number of characters is 360
-score.viralheat = function (text, api.key){
+score.viralheat = function (text, api.key) {
   library(RCurl);
   library(RJSONIO);
   

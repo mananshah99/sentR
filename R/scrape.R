@@ -9,7 +9,7 @@ scrape.IMDb <- function(url)
   return(df)
 }
 
-strip.links <-function(x)
+scrape.striplinks <-function(x)
 {
   .internal<-function(x)
   {
