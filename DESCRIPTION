@@ -12,7 +12,7 @@ Imports:
   RJSONIO,
   RTextTools,
   XML,
-  e1071,
+  tm,
   grid,
   plyr,
   stringr

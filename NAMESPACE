@@ -3,7 +3,7 @@ import(RCurl,
   RJSONIO,
   RTextTools,
   XML,
-  e1071,
   grid,
   plyr,
-  stringr)
+  stringr,
+  tm)
