@@ -16,16 +16,23 @@ Version: \tab 0.1\cr
 Date: \tab 2015-03-11\cr
 License: \tab MIT \cr
 }
-Version 0.1: implementation of score.aggregate, a basic aggregation sentiment scoring function with regex driven substitution of key elements in Twitter and Amazon corpuses.
+Includes core sentiment processing functions:
+
+aggregate
+naivebayes
+viralheat
+And exposes processing and analyzing utilities:
+
+stemwords
+striplinks
+multiplot
+Provides scraping functionality (basic):
+
+IMDb
+retrieveklout
 }
 \author{
 Manan Shah
 }
 
 \keyword{ package, sentiment, analysis }
-\examples{
-posText <- c('happy', 'good')
-negText <- c('sad', 'bad')
-text <- "I am happy!"
-scores = score.aggregate(text, posText, negText, .progress='none')
-}
