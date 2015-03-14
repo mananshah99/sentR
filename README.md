@@ -12,7 +12,7 @@ An R package that provide functional sentiment analysis utilities.
 
 Input:
 
-```
+```R
 require('sentR')
 
 # Create small vectors for happy and sad words (useful in aggregate(...) function)
