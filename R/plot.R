@@ -1,3 +1,12 @@
+#' Multiplot (ggplot) Utility
+#'
+#' Provides a utility to plot multiple ggplot instances together
+#' 
+#' @param \dots the plots to stitch together
+#' @param plotlist the list of plots
+#' @param the columns for the plot
+#' @export
+#'
 plot.multiplot <- function(..., plotlist=NULL, cols) {
   require(grid)
   # Make a list from the ... arguments and plotlist

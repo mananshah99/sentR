@@ -1,4 +1,17 @@
-#simple aggregation function with regex driven gsub
+#' Primitive Bagging Sentiment Classification
+#'
+#' Provides a simple aggregation function in order to clasify a vector of sentences.
+#' Incorporates text trimming and removes extraneous characters for better analysis.
+#' 
+#' @param sentences a vector of sentences to classify
+#' @param pos.words the dictionary of positive words
+#' @param neg.words the dictionary of negative words
+#' @param .progress boolean value indicating whether a progress bar should be displayed
+#' @export
+#' @examples
+#' 
+#' classify.aggregate(c("I am happy"), c("happy", "overjoyed"), c("sad", "depressed"), .progress='none')
+#' 
 classify.aggregate = function(sentences, pos.words, neg.words, .progress='none')  
 { 
   require(plyr)  
@@ -55,8 +68,20 @@ classify.aggregate = function(sentences, pos.words, neg.words, .progress='none')
   return(scores.df)  
 }
 
-# Uses ViralHeat's API to calculate the sentiment of a given piece of text.
-# Note that maximum number of characters is 360
+
+#' ViralHeat API Sentiment Classification
+#'
+#' Exposes ViralHeat's API in order to calculate the sentiment of a vector of text
+#' based on their predefined algorithms. Text is passed as a JSON parameter to the 
+#' website, so internet connection is required for successful completion. Note that 
+#' the maximum number of characters is 360 (due to ViralHeat constraints). An API
+#' key is required. 
+#' 
+#' @param text a vector of sentences to classify
+#' @param api.key your API key for authentication
+#' @export
+#' 
+
 classify.viralheat = function (text, api.key) {
   library(RCurl);
   library(RJSONIO);
@@ -91,10 +116,25 @@ classify.viralheat = function (text, api.key) {
   return(sent);
 }
 
-classify.naivebayes <- function(textColumns, pstrong=0.5,
+#' Naive Bayes Sentiment Classification
+#'
+#' Implements the Naive-Bayes prior probability classification function for
+#' determining the sentiment of text. Multiple customization parameters may defined
+#' for the created document term matrix in order to ensure maximum accuracy. 
+#' 
+#' @param sentences the sentences to classify
+#' @param pstrong the probability that a strong subjective term appears in the text
+#' @param pweak the probability that a weakly subjective term appears in the text
+#' @param prior the prior probability to use (1.0 by default)
+#' @export
+#' @examples
+#' 
+#' classify.naivebayes(c("I am happy", "I am sad"))
+#' 
+classify.naivebayes <- function(sentences, pstrong=0.5,
                               pweak=1.0, prior=1.0, ...) {
   
-  matrix <- classify.dtm(textColumns, ...)
+  matrix <- classify.dtm(sentences, ...)
   fpath <- system.file("extdata", "subjectivity.csv", package="sentR")
   lexicon <- read.csv(fpath, head = FALSE)
   
@@ -146,7 +186,29 @@ classify.naivebayes <- function(textColumns, pstrong=0.5,
   return(documents)
 }
 
-classify.dtm <- function(textColumns, language="english", 
+#' Creates a Document/Term Matrix
+#'
+#' Provides a utility function used to create a document/term matrix using 
+#' the package \pkg{tm}
+#' 
+#' @param sentences a character vector of sentences to use for training
+#' @param language the language to use for word stemming
+#' @param minDocFreq the minimum number of times a word is needed in a document to be included
+#' in the analysis
+#' @param minWordLength the minimnum word length for inclusion in analysis
+#' @param removeNumbers a boolean regarding whether numbers whould be removed
+#' @param removePuncutation a boolean specifying whether to remove puncutation
+#' @param removeStopwords a boolean specifying whether stopwords in the specified language should be removed
+#' @param stemWords a boolean specying whether words should be stemmed to their root form in the language specified
+#' @param stripWhitespace a boolean indicating whether whitespace should be stripped
+#' @param toLower a boolean indicating whether all words should be transformed to their lowercase representations
+#' @param weighting either weightTf or weightIfIdf (see the package \pkg{tm} for details)
+#' @export
+#' @examples
+#' 
+#' classify.dtm(c("I am happy", "I am sad", "I am miserable", "The weather is good today"))
+#' 
+classify.dtm <- function(sentences, language="english", 
                           minDocFreq = 1, minWordLength = 4, 
                           removeNumbers = TRUE, removePunctuation = TRUE, 
                           removeStopwords = TRUE, 
@@ -163,7 +225,7 @@ classify.dtm <- function(textColumns, language="english",
   if (stemWords == TRUE)
     control <- append(control, list(stemming = process.stemwords), after=6)
   
-  train <- apply(as.matrix(textColumns), 1, paste, collapse=" ")
+  train <- apply(as.matrix(sentences), 1, paste, collapse=" ")
   train <- sapply(as.vector(train, mode="character"),
                            iconv, to="UTF8", sub="byte")
   

@@ -1,3 +1,13 @@
+#' IMDb Scraper Utility
+#'
+#' Provides a simple scraping utility for access to the IMDb movie database
+#' 
+#' @param url the url to scrape
+#' @export
+#' @examples
+#' 
+#' scrape.IMDb('http://www.imdb.com/title/tt0903747/epdate') # Scrapes Breaking Bad Ratings
+#' 
 scrape.IMDb <- function(url)
 {
   require(XML)
@@ -9,6 +19,16 @@ scrape.IMDb <- function(url)
   return(df)
 }
 
+#' Klout Analysis for Twitter Utility
+#'
+#' Interfaces with klout to determine the influential rating of any twitter user
+#' 
+#' @param handles a character vector of twitter handles
+#' @param api.key a twitter API key
+#' @param na_omit a boolean regarding whether to omit 'NA' values
+#' @param .progress boolean value indicating whether a progress bar should be displayed
+#' @export
+#'
 scrape.retrieveklout <- function(handles, api.key, na_omit=TRUE, .progress='none') {
   twitter_handles <- gsub("@", "", handles)
   getID <- function(twitter_handle) {

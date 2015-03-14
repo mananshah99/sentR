@@ -1,8 +1,14 @@
+#' Word Stemming Utility
+#'
+#' Provides a word stemming utility function for use in the naive
+#' bayes classifier.
+#' 
+#' @param document a vector of sentences to stem
+#' @export
+#' 
 process.stemwords <- function(document) {
-  if(!require("Rstem")){
-    install.packages("Rstem")
-    library("Rstem")
-  }
+  require("SnowballC")
+  require("stringr")
   words <- str_trim(unlist(strsplit(document, " ")))
   words <- words[words!=""]
   # stem words
@@ -12,6 +18,16 @@ process.stemwords <- function(document) {
   return(output)
 }
 
+#' Stip Text Links Utility
+#' 
+#' Strips 'http*' links from text in order for cleaner analysis
+#'
+#' @param x the text to process
+#' @export
+#' @examples
+#' 
+#' process.striplinks("http://google.com is a search engine brought to you by Google")
+#' 
 process.striplinks <- function(x)
 {
   .internal<-function(x)
