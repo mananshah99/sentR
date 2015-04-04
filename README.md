@@ -1,5 +1,5 @@
 # sentR
-An R package that provide functional sentiment analysis utilities.
+An R package that provides functional sentiment analysis utilities with complete documentation and easy integration.
 
 ## Install
 
