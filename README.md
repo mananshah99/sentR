@@ -1,4 +1,6 @@
-![logo](https://github.com/mananshah99/sentR/blob/master/bin/logo.png)
+<p align="center">
+  <img src="https://github.com/mananshah99/sentR/blob/master/bin/logo.png">
+</p>
 
 An R package that provides functional sentiment analysis utilities with complete documentation and easy integration.
 
