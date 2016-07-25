@@ -2,7 +2,7 @@
   <img src="https://github.com/mananshah99/sentR/blob/master/bin/logo.png">
 </p>
 
-An R package that provides functional sentiment analysis utilities with complete documentation and easy integration.
+SentR is an R package that provides functional sentiment analysis utilities with complete documentation and easy integration.
 
 ## Install
 
