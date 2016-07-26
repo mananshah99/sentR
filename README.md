@@ -2,9 +2,9 @@
   <img src="https://github.com/mananshah99/sentR/blob/master/bin/logo.png">
 </p>
 
-SentR is an R package that provides functional sentiment analysis utilities with complete documentation and easy integration.
+SentR is an R package that provides functional sentiment analysis utilities with complete documentation and simple workflow integration. 
 
-## Install
+## Install [![Build Status](https://travis-ci.org/mananshah99/sentR.svg?branch=master)](https://travis-ci.org/mananshah99/sentR)
 
 1. Open the R shell (32 or 64 bit)
 2. Install devtools: run `install.packages('devtools')`
